@@ -1,0 +1,20 @@
+{
+  "molecule": {
+    "name": "Single Oxygen Atom",
+    "atoms": [
+      {
+        "element": "O",
+        "position": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "basis": [
+          {"type": "s", "exponent": 0.34},
+          {"type": "s", "exponent": 1.45},
+          {"type": "p", "exponent": 0.21}
+        ]
+      }
+    ]
+  }
+}
