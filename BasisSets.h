@@ -10,6 +10,7 @@
 #include "iostream"
 #include "json.hpp"
 #include "fstream"
+#include "ClassesStructs.h"
 
 
 using json = nlohmann::json;
@@ -20,7 +21,8 @@ public:
     int RI,FI;
     string Element_name;
     int element;
-    Point Centrum;
+    Point centrum;
+    point Centrum;
     int type;
     int decode_type(string type);
     double exponent;
@@ -32,7 +34,8 @@ class Atom{
 public:
     string element_name;
     int Element;
-    Point Centrum;
+    Point centrum;
+    point Centrum;
     int Get_element(string elem);
     double get_VdW_radii();
 };

@@ -135,7 +135,7 @@ void Lebedev_grid::build_sphere(BasisSet &bs, Lebedev_grid &g) {
     vector<double> radiis;
     Point P;
     for (Atom a: bs.atoms){
-        centers.push_back(a.Centrum);
+        centers.push_back(a.centrum);
         radiis.push_back(a.get_VdW_radii());
     }
 //    for(double k:radiis){cout<<k<<endl;}

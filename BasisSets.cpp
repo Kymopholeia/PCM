@@ -72,9 +72,14 @@ void BasisSet::add_basis_set() {
     atom.Centrum.y =0.0;
     atom.Centrum.z =0.0;
 
+    atom.centrum.x = 0.0;
+    atom.centrum.y =0.0;
+    atom.centrum.z =0.0;
+
             BasisFunction basisFunc;
     basisFunc.element = atom.Element;
     basisFunc.Centrum = atom.Centrum;
+    basisFunc.centrum = atom.centrum;
     basisFunc.type = 1;
     basisFunc.exponent = 2.0;
 
@@ -117,9 +122,18 @@ void BasisSet::Make_Basis_Functions() {
         atom.Centrum.y = atom_json["position"]["y"];
         atom.Centrum.z = atom_json["position"]["z"];
 
+//        code mergeing problem hardcode solution
+        atom.centrum.x = atom_json["position"]["x"];
+        atom.centrum.y = atom_json["position"]["y"];
+        atom.centrum.z = atom_json["position"]["z"];
+
         atom.Centrum.x= atom.Centrum.x*1.8897259886;
         atom.Centrum.y= atom.Centrum.y*1.8897259886;
         atom.Centrum.z= atom.Centrum.z*1.8897259886;
+//        code mergeing problem hardcode solution
+        atom.centrum.x= atom.centrum.x*1.8897259886;
+        atom.centrum.y= atom.centrum.y*1.8897259886;
+        atom.centrum.z= atom.centrum.z*1.8897259886;
 
         // Add the Atom to the atom list
         atoms.push_back(atom);

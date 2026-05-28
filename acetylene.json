@@ -1,0 +1,45 @@
+{
+  "molecule": {
+    "name": "Example Molecule",
+    "atoms": [
+      {
+        "element": "C",
+        "position": {
+          "x": 1.04357,
+          "y": 0.04819,
+          "z": 0.08724
+        },
+        "basis":[{"type": "s", "exponent": 1.0},{"type": "p", "exponent": 0.5}]
+      },
+	{
+        "element": "C",
+        "position": {
+          "x": 2.24390,
+          "y": 0.04819,
+          "z": 0.08724
+        },
+        "basis":[{"type": "s", "exponent": 1.0},{"type": "p", "exponent": 0.5}]
+      },
+      {
+        "element": "H",
+        "position": {
+          "x": -0.02224,
+          "y": 0.04819,
+          "z": 0.08724
+        },
+        "basis":[{"type": "s", "exponent": 0.5}]
+      },
+      {
+        "element": "H",
+        "position": {
+          "x": 3.30971,
+          "y": 0.04819,
+          "z": 0.08724
+        },
+        "basis":[{"type": "s", "exponent": 0.5}]
+      }
+	
+    ]
+  }
+}
+
