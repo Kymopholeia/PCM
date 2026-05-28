@@ -6,6 +6,7 @@
 #define ONLAB_NEWHEADER_NUCLEAR_H
 
 #include "Integrals.h"
+#include "Lebedev_grid.h"
 
 
 class Nuclear : public integral
@@ -13,6 +14,7 @@ class Nuclear : public integral
 
 public:
     Nuclear(BasisSet Test_set);
+    Nuclear(BasisSet bs, Lebedev_grid g );
     virtual double calculate_PrimInt(double Al, double Be, double Ga, double De, int mm, double Tt);
 };
 

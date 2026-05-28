@@ -160,6 +160,20 @@ double integral::calculation(int m, double alpha, double beta, double gamma, dou
         resoult=-Uu*(1/eta)*2*pi*FmT*pow(2*eta,m)*AZ;
         resoult=resoult*N1*N2;
     }
+//    This is only added for the pcm part, same nuclear integral but ri instead of the nucleus Z
+    if(type==4) {
+        double N1 = cal_norm(gamma);
+        double N2 = cal_norm(delta);
+        double eta=gamma+delta;
+        double sigma_qq = 1 / (2 * (gamma+delta));
+        double pow_e_q=-gamma*delta*sigma_qq*2*pow(distance_between_points(C,D),2);
+        double U_qq=pow(e,pow_e_q);
+        double Uu=1*U_qq;
+//        cout<<"AZ: "<<AZ<<"CZ:  "<<CZ<<"DZ:  "<<DZ<<endl;
+        resoult=-Uu*(1/eta)*2*pi*FmT*pow(2*eta,m)*AZ;
+        resoult=resoult*N1*N2;
+    }
+
 
     cal_T.push_back(make_pair(m,resoult));
     return resoult;
