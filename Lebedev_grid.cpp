@@ -146,14 +146,15 @@ void Lebedev_grid::build_sphere(BasisSet &bs, Lebedev_grid &g) {
             P.weight=pg.weight;
             P.no_of_atom=i;
             bool keep=true;
-            for(Point &tmp:centers){
-                if(&tmp==&pc){continue;}
-                double dx=tmp.x-P.x;
-                double dy=tmp.y-P.y;
-                double dz=tmp.z-P.z;
+            for(int neighbor_idx = 0; neighbor_idx < centers.size(); ++neighbor_idx) {
+                if (neighbor_idx == i) continue;  // skip self
+                Point& tmp = centers[neighbor_idx];
+                double dx = tmp.x - P.x;
+                double dy = tmp.y - P.y;
+                double dz = tmp.z - P.z;
                 double dist2 = dx*dx + dy*dy + dz*dz;
-                if(dist2 < radiis[i]*radiis[i]){
-                    keep=false;
+                if (dist2 < radiis[neighbor_idx]*radiis[neighbor_idx]) {  // ← use neighbor's radius
+                    keep = false;
                     break;
                 }
             }
@@ -177,6 +178,7 @@ void Lebedev_grid::cal_tessera(Lebedev_grid &g, BasisSet bs) {
         t.area=4*M_PI*(bs.atoms[p.no_of_atom].get_VdW_radii()*bs.atoms[p.no_of_atom].get_VdW_radii())*p.weight;
         tesserae.push_back(t);
     }
+    cout<<"Tessera points: "<<tesserae.size()<<endl;
 
 }
 

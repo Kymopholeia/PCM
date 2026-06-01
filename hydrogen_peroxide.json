@@ -1,0 +1,57 @@
+{
+  "molecule": {
+    "name": "Hydrogen Peroxide H2O2",
+    "atoms": [
+      {
+        "element": "O",
+        "position": {
+          "x": 0.7375,
+          "y": -0.0925,
+          "z": 0.0
+        },
+        "basis": [
+          {"type": "s", "exponent": 0.34},
+          {"type": "s", "exponent": 1.45},
+          {"type": "p", "exponent": 0.21}
+        ]
+      },
+      {
+        "element": "O",
+        "position": {
+          "x": -0.7375,
+          "y": 0.0925,
+          "z": 0.0
+        },
+        "basis": [
+          {"type": "s", "exponent": 0.34},
+          {"type": "s", "exponent": 1.45},
+          {"type": "p", "exponent": 0.21}
+        ]
+      },
+      {
+        "element": "H",
+        "position": {
+          "x": 1.0357,
+          "y": 0.4127,
+          "z": 0.7728
+        },
+        "basis": [
+          {"type": "s", "exponent": 0.14},
+          {"type": "s", "exponent": 1.05}
+        ]
+      },
+      {
+        "element": "H",
+        "position": {
+          "x": -1.0357,
+          "y": -0.4127,
+          "z": -0.7728
+        },
+        "basis": [
+          {"type": "s", "exponent": 0.14},
+          {"type": "s", "exponent": 1.05}
+        ]
+      }
+    ]
+  }
+}

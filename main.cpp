@@ -21,21 +21,43 @@ using json = nlohmann::json;
 
 
 int main() {
-
+    int TYPE=0;
+    if(TYPE==0){
+    cout<<"Normal SCF"<<endl;
     cout << setprecision(12);
     BasisSet Water;
 //    Water.filename="real_water.json";
-    Water.filename="ion_test.json";
+//    Water.filename="ammonia.json";
+//    Water.filename="ammonia.json";
+    Water.filename="hydrogen_peroxide.json";
     Water.Make_Basis_Functions();
-    Lebedev_grid Grid;
-    Grid.Lebedev_grid_();
-    Grid.build_sphere(Water,Grid);
-    Grid.cal_tessera(Grid,Water);
     cout<<"mx size:  "<<Water.matrix_size<<endl;
     Eigen::MatrixXd P=Eigen::MatrixXd::Zero(Water.matrix_size,Water.matrix_size);
-    Eigen::MatrixXd P_final;
     SCF SCf(1e-8,100);
-    SCf.runSCF(Water,P,Grid);
+    SCf.runSCF(Water,P);
+    }
+    if(TYPE==1){
+        cout<<"PCM SCF"<<endl;
+        cout << setprecision(12);
+        BasisSet Water;
+//    Water.filename="real_water.json";
+//    Water.filename="metane.json";
+//    Water.filename="ammonia.json";
+        Water.filename="hydrogen_peroxide.json";
+        Water.Make_Basis_Functions();
+        Lebedev_grid Grid;
+        Grid.Lebedev_grid_();
+        Grid.build_sphere(Water,Grid);
+        Grid.cal_tessera(Grid,Water);
+        cout<<"mx size:  "<<Water.matrix_size<<endl;
+        Eigen::MatrixXd P=Eigen::MatrixXd::Zero(Water.matrix_size,Water.matrix_size);
+        SCF SCf(1e-8,100);
+        SCf.runSCF(Water,P,Grid);
+    }
+
+//
+
+
 
 //    Lebedev_grid Grid;
 //    Grid.Lebedev_grid_();
@@ -72,7 +94,20 @@ int main() {
 
 
 
-
+//std::vector<int> per_atom_count(Water.atoms.size(), 0);
+//for (const auto& t : Grid.tesserae) {
+//per_atom_count[t.r.no_of_atom]++;
+//}
+//for (size_t i = 0; i < per_atom_count.size(); ++i) {
+//std::cout << "Atom " << i << " (" << Water.atoms[i].element_name
+//<< "): " << per_atom_count[i] << " tesserae" << std::endl;
+//}
+//double total_area = 0.0;
+//for (const auto& t : Grid.tesserae) {
+//total_area += t.area;
+//}
+//std::cout << "Total cavity surface area: " << total_area << " Bohr²" << std::endl;
+//std::cout << "Total tesserae: " << Grid.tesserae.size() << std::endl;
 
 
 //S MATRIX TESTS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

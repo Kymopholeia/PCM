@@ -1,0 +1,56 @@
+{
+  "molecule": {
+    "name": "Ammonia",
+    "atoms": [
+      {
+        "element": "N",
+        "position": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.1116
+        },
+        "basis": [
+          {"type": "s", "exponent": 0.28},
+          {"type": "s", "exponent": 1.25},
+          {"type": "p", "exponent": 0.18}
+        ]
+      },
+      {
+        "element": "H",
+        "position": {
+          "x": 0.9374,
+          "y": 0.0,
+          "z": -0.2604
+        },
+        "basis": [
+          {"type": "s", "exponent": 0.14},
+          {"type": "s", "exponent": 1.05}
+        ]
+      },
+      {
+        "element": "H",
+        "position": {
+          "x": -0.4687,
+          "y": 0.8118,
+          "z": -0.2604
+        },
+        "basis": [
+          {"type": "s", "exponent": 0.14},
+          {"type": "s", "exponent": 1.05}
+        ]
+      },
+      {
+        "element": "H",
+        "position": {
+          "x": -0.4687,
+          "y": -0.8118,
+          "z": -0.2604
+        },
+        "basis": [
+          {"type": "s", "exponent": 0.14},
+          {"type": "s", "exponent": 1.05}
+        ]
+      }
+    ]
+  }
+}

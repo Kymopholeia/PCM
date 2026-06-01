@@ -12,7 +12,7 @@ double Pcm::dist_bet_po(Point a, Point b) {
     return sqrt(xx+yy+zz);
 }
 
-void Pcm::cal_smatrix(Lebedev_grid g) {
+void Pcm::cal_smatrix(Lebedev_grid& g) {
     S_matrix=Eigen::MatrixXd::Zero(s_mx_size,s_mx_size);
     for(int i=0;i<g.tesserae.size();i++){
         for(int j=0;j<g.tesserae.size();j++){
@@ -26,8 +26,11 @@ void Pcm::cal_smatrix(Lebedev_grid g) {
     }
 }
 
-void Pcm::build_pot_vector(BasisSet bs,Lebedev_grid g, Eigen::MatrixXd P) {
-
+void Pcm::build_pot_vector(BasisSet& bs,Lebedev_grid& g, Eigen::MatrixXd& P) {
+    v_elec.clear();
+    V_electric.clear();
+    v_fixed.clear();
+    pot_vect.clear();
     double fix_element;
         if(v_fixed.size()==0){
 
@@ -44,6 +47,8 @@ void Pcm::build_pot_vector(BasisSet bs,Lebedev_grid g, Eigen::MatrixXd P) {
 
         Nuclear N(bs,g);
         Nuclear_pcm_matrix=N.Nuclear_PCM;
+        cout<<"Here we are inside the build pot vect: Nuclear pcm.size: "<<Nuclear_pcm_matrix.size()<<endl;
+
         for(int i=0;i<Nuclear_pcm_matrix.size();i++){
             v_elec.push_back(0);
             for(int j=0;j<P.cols();j++){
@@ -66,20 +71,22 @@ void Pcm::build_pot_vector(BasisSet bs,Lebedev_grid g, Eigen::MatrixXd P) {
     Eigen::VectorXd b = -0.987 * V_eigen;
 
     Eigen::LLT<Eigen::MatrixXd> llt(S_matrix);
-    Eigen::VectorXd q = llt.solve(b);
+    q = llt.solve(b);
+//    cout<<q<<endl;
+    cout<<"q. size: "<<q.size()<<endl;
     double q_sum = q.sum();
     double q_min = q.minCoeff();
     double q_max = q.maxCoeff();
 
 // Need v as Eigen vector for dot product:
     Eigen::VectorXd v_eigen = Eigen::Map<Eigen::VectorXd>(V_electric.data(), V_electric.size());
-    double E_solv = 0.5 * q.dot(v_eigen);
+    E_solv = 0.5 * q.dot(v_eigen);
 
-    std::cout << "Sum of charges (Gauss's law): " << q_sum << std::endl;
-    std::cout << "Min charge: " << q_min << std::endl;
-    std::cout << "Max charge: " << q_max << std::endl;
-    std::cout << "Solvation energy estimate: " << E_solv << " Hartree" << std::endl;
-    std::cout << "                         = " << E_solv * 627.509 << " kcal/mol" << std::endl;
+//    std::cout << "Sum of charges (Gauss's law): " << q_sum << std::endl;
+//    std::cout << "Min charge: " << q_min << std::endl;
+//    std::cout << "Max charge: " << q_max << std::endl;
+//    std::cout << "Solvation energy estimate: " << E_solv << " Hartree" << std::endl;
+//    std::cout << "                         = " << E_solv * 627.509 << " kcal/mol" << std::endl;
 //        cout<<N.integral_matrix<<endl;
 
 

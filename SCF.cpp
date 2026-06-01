@@ -68,7 +68,7 @@ void SCF::runSCF(BasisSet& Water, Eigen::MatrixXd& P_initial) {
         Eigen::MatrixXd C = es.eigenvectors();
 //        cout<<"eigen vektorok:  "<<endl<<es.eigenvectors()<<endl;
 //        cout<<"C matrix: "<<endl<<C<<endl;
-        cout<<"eigen values:  "<<endl<<es.eigenvalues()<<endl;
+//        cout<<"eigen values:  "<<endl<<es.eigenvalues()<<endl;
 
         // Új sűrűségmátrix építése
         Density_Matrix density;
@@ -84,7 +84,7 @@ void SCF::runSCF(BasisSet& Water, Eigen::MatrixXd& P_initial) {
     std::cout << "SCF did not converge within " << max_iter << " iterations" << std::endl;
 }
 
-void SCF::runSCF(BasisSet& Water, Eigen::MatrixXd& P_initial, Lebedev_grid G) {
+void SCF::runSCF(BasisSet& Water, Eigen::MatrixXd& P_initial, Lebedev_grid& G) {
     int electorn_num=0;
     for(auto a: Water.atoms){
         electorn_num+=a.Element;
@@ -98,14 +98,14 @@ void SCF::runSCF(BasisSet& Water, Eigen::MatrixXd& P_initial, Lebedev_grid G) {
 
     // Integrálok számítása
     Overlap overlap(Water);
-    cout<< "overlap mx: "<<endl<<overlap.integral_matrix<<endl;
+//    cout<< "overlap mx: "<<endl<<overlap.integral_matrix<<endl;
     Kinetic kinetic(Water);
 //    cout<< "kinetic mx: "<<endl<<kinetic.integral_matrix<<endl;
-    Nuclear nuclear(Water,G);
+    Nuclear nuclear(Water);
 
 //    cout<< "nuclear mx: "<<endl<<nuclear.integral_matrix<<endl;
     ObaraSaika electron_rep(Water);
-    cout<<"ERI2 size is: "<<electron_rep.Eri2.size()<<endl;
+//    cout<<"ERI2 size is: "<<electron_rep.Eri2.size()<<endl;
 
     Fock_mx fock;
     fock.basis_size_ = Water.basis.size();
@@ -119,14 +119,43 @@ void SCF::runSCF(BasisSet& Water, Eigen::MatrixXd& P_initial, Lebedev_grid G) {
     pcm.s_mx_size=G.tesserae.size();
     cout<<pcm.s_mx_size<<endl;
     pcm.cal_smatrix(G);
+    // Number of tesserae
+    std::cout << "Number of tesserae: " << G.tesserae.size() << std::endl;
+
+// Total cavity surface area
+    double total_area = 0.0;
+    for (const auto& t : G.tesserae) {
+        total_area += t.area;
+    }
+    std::cout << "Total cavity surface area: " << total_area << " Bohr²" << std::endl;
+
+// Total nuclear charge (what the cavity sees as Z_total)
+    int total_Z = 0;
+    for (const auto& a : Water.atoms) {
+        total_Z += a.Element;
+    }
+    std::cout << "Total nuclear charge: " << total_Z << std::endl;
+
+// Per-atom info
+    std::cout << "Atoms:" << std::endl;
+    for (size_t i = 0; i < Water.atoms.size(); ++i) {
+        std::cout << "  Atom " << i
+                  << ": element_name=" << Water.atoms[i].element_name
+                  << ", Z=" << Water.atoms[i].Element
+                  << ", vdW radius=" << Water.atoms[i].get_VdW_radii()
+                  << std::endl;
+    }
+
+// Basis functions per atom (helps spot basis imbalance)
+    std::cout << "Total basis functions: " << Water.basis.size() << std::endl;
     pcm.build_pot_vector(Water,G,P);
 
     // SCF iterációk
     for(int iter = 0; iter < max_iter; iter++) {
-        Eigen::MatrixXd F = fock.calculateFockMatrix(P, electron_rep.ERI);
+        Eigen::MatrixXd F = fock.calculateFockMatrix(P, electron_rep.ERI,pcm.q,pcm.Nuclear_pcm_matrix);
 //        cout<<"Fock matrix: "<<endl<<F<<endl;
 
-        double energy = fock.calculateEnergy(P,electron_rep.ERI);
+        double energy = fock.calculateEnergy(P,electron_rep.ERI,pcm.E_solv);
         std::cout << "Iteration " << iter << ", Energy: " << energy << std::endl;
 
         // Konvergencia ellenőrzés
@@ -154,7 +183,7 @@ void SCF::runSCF(BasisSet& Water, Eigen::MatrixXd& P_initial, Lebedev_grid G) {
         Eigen::MatrixXd C = es.eigenvectors();
 //        cout<<"eigen vektorok:  "<<endl<<es.eigenvectors()<<endl;
 //        cout<<"C matrix: "<<endl<<C<<endl;
-        cout<<"eigen values:  "<<endl<<es.eigenvalues()<<endl;
+//        cout<<"eigen values:  "<<endl<<es.eigenvalues()<<endl;
 
         // Új sűrűségmátrix építése
         Density_Matrix density;
@@ -163,8 +192,15 @@ void SCF::runSCF(BasisSet& Water, Eigen::MatrixXd& P_initial, Lebedev_grid G) {
         density.n_elect=electorn_num;
         P = density.constructFromCoeff(C,overlap.integral_matrix);
 //        cout<<"Density matrix: "<<endl<<P<<endl;
-
+        pcm.build_pot_vector(Water,G,P);
         std::cout << "Iteration completed" << std::endl;
+        double E_pol = pcm.E_solv;
+        std::cout << "Iter " << iter
+                  << "  E (returned) = " << energy
+                  << "  Σq = " << pcm.q.sum()
+                  << "  E_pol = " << E_pol
+                  << "  Tr(P·V_pcm) = " << (P * fock.V_pcm).trace()
+                  << std::endl;
     }
 
     // Ha nem konvergált

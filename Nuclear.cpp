@@ -5,7 +5,7 @@
 #include "BasicFunctions.h"
 #include "Nuclear.h"
 
-Nuclear::Nuclear(BasisSet Test_set) {
+Nuclear::Nuclear(BasisSet& Test_set) {
     cout<<"Nuclear started"<<endl;
     auto start = std::chrono::high_resolution_clock::now();
     Eigen::Index I = Test_set.matrix_size;
@@ -101,7 +101,7 @@ Nuclear::Nuclear(BasisSet Test_set) {
 
 }
 
-Nuclear::Nuclear(BasisSet bs, Lebedev_grid G) {
+Nuclear::Nuclear(BasisSet& bs, Lebedev_grid& G) {
     martix_size=bs.matrix_size;
     grid_size=G.tesserae.size();
     Nuclear_PCM=vector<Eigen::MatrixXd>(grid_size,Eigen::MatrixXd(martix_size,martix_size));
@@ -115,8 +115,8 @@ Nuclear::Nuclear(BasisSet bs, Lebedev_grid G) {
 //    std::ofstream outputFile("output.txt");
     vector<double> rests;
 //    cout<<"Atoms vector size:  "<<Test_set.atoms.size()<<endl;
-cout<<"---------------------------------------------------"<<endl;
-    cout<<G.tesserae.size()<<endl;
+//cout<<"---------------------------------------------------"<<endl;
+//    cout<<G.tesserae.size()<<endl;
       for(int g=0;g<G.tesserae.size();g++){
             for (int c = 0; c < bs.basis.size(); c++) {
                 for (int d = 0; d < bs.basis.size(); d++) {
@@ -202,6 +202,7 @@ cout<<"---------------------------------------------------"<<endl;
           Nuclear_PCM[g]=integral_matrix;
             integral_matrix.setZero();
       }
+//      cout<<Nuclear_PCM.size()<<endl;
     cout<<endl;
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;

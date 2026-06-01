@@ -1,0 +1,87 @@
+{
+  "molecule": {
+    "name": "Methanol with polarization functions",
+    "atoms": [
+      {
+        "element": "C",
+        "position": {
+          "x": -0.7464,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "basis": [
+          {"type": "s", "exponent": 1.35},
+          {"type": "s", "exponent": 0.31},
+          {"type": "p", "exponent": 0.20},
+          {"type": "d", "exponent": 0.55}
+        ]
+      },
+      {
+        "element": "O",
+        "position": {
+          "x": 0.6627,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "basis": [
+          {"type": "s", "exponent": 1.45},
+          {"type": "s", "exponent": 0.34},
+          {"type": "p", "exponent": 0.21},
+          {"type": "d", "exponent": 0.80}
+        ]
+      },
+      {
+        "element": "H",
+        "position": {
+          "x": 0.9824,
+          "y": 0.8915,
+          "z": 0.0
+        },
+        "basis": [
+          {"type": "s", "exponent": 1.05},
+          {"type": "s", "exponent": 0.14},
+          {"type": "p", "exponent": 0.75}
+        ]
+      },
+      {
+        "element": "H",
+        "position": {
+          "x": -1.1485,
+          "y": 0.5172,
+          "z": 0.8836
+        },
+        "basis": [
+          {"type": "s", "exponent": 1.05},
+          {"type": "s", "exponent": 0.14},
+          {"type": "p", "exponent": 0.75}
+        ]
+      },
+      {
+        "element": "H",
+        "position": {
+          "x": -1.1485,
+          "y": 0.5172,
+          "z": -0.8836
+        },
+        "basis": [
+          {"type": "s", "exponent": 1.05},
+          {"type": "s", "exponent": 0.14},
+          {"type": "p", "exponent": 0.75}
+        ]
+      },
+      {
+        "element": "H",
+        "position": {
+          "x": -1.1485,
+          "y": -1.0345,
+          "z": 0.0
+        },
+        "basis": [
+          {"type": "s", "exponent": 1.05},
+          {"type": "s", "exponent": 0.14},
+          {"type": "p", "exponent": 0.75}
+        ]
+      }
+    ]
+  }
+}

@@ -16,8 +16,8 @@ public:
     int grid_size;
     int martix_size;
     vector<Eigen::MatrixXd> Nuclear_PCM;
-    Nuclear(BasisSet Test_set);
-    Nuclear(BasisSet bs, Lebedev_grid g );
+    Nuclear(BasisSet& Test_set);
+    Nuclear(BasisSet& bs, Lebedev_grid& g );
     virtual double calculate_PrimInt(double Al, double Be, double Ga, double De, int mm, double Tt);
 };
 

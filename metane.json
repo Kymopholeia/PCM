@@ -1,53 +1,68 @@
 {
   "molecule": {
-    "name": "Example Molecule",
+    "name": "Methane",
     "atoms": [
       {
         "element": "C",
         "position": {
-          "x": 0.92437,
-          "y": -0.06126,
-          "z": 0.02295
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
         },
-        "basis":[{"type": "s", "exponent": 1.05}, {"type": "s", "exponent": 0.5},{"type": "s", "exponent": 0.14}, {"type": "p", "exponent": 0.2},{"type": "p", "exponent": 0.9}]
+        "basis": [
+          {"type": "s", "exponent": 0.31},
+          {"type": "s", "exponent": 1.35},
+          {"type": "p", "exponent": 0.20}
+        ]
       },
       {
         "element": "H",
         "position": {
-          "x": 2.01656,
-          "y": -0.06126,
-          "z": 0.02295
+          "x": 0.6293,
+          "y": 0.6293,
+          "z": 0.6293
         },
-        "basis":[{"type": "s", "exponent": 0.14}, {"type": "s", "exponent": 1.05}]
+        "basis": [
+          {"type": "s", "exponent": 0.14},
+          {"type": "s", "exponent": 1.05}
+        ]
       },
       {
         "element": "H",
         "position": {
-          "x": 0.56030,
-          "y": 0.94726,
-          "z": 0.23091
+          "x": -0.6293,
+          "y": -0.6293,
+          "z": 0.6293
         },
-        "basis":[{"type": "s", "exponent": 0.14}, {"type": "s", "exponent": 1.05}]
-      },
-	{
-        "element": "H",
-        "position": {
-          "x": 0.56030,
-          "y": -0.74562,
-          "z": 0.79237
-        },
-        "basis":[{"type": "s", "exponent": 0.14}, {"type": "s", "exponent": 1.05}]
+        "basis": [
+          {"type": "s", "exponent": 0.14},
+          {"type": "s", "exponent": 1.05}
+        ]
       },
       {
         "element": "H",
         "position": {
-          "x": 0.56030,
-          "y": -0.38542,
-          "z": -0.95443
+          "x": -0.6293,
+          "y": 0.6293,
+          "z": -0.6293
         },
-        "basis":[{"type": "s", "exponent": 0.14}, {"type": "s", "exponent": 1.05}]
+        "basis": [
+          {"type": "s", "exponent": 0.14},
+          {"type": "s", "exponent": 1.05}
+        ]
+      },
+      {
+        "element": "H",
+        "position": {
+          "x": 0.6293,
+          "y": -0.6293,
+          "z": -0.6293
+        },
+        "basis": [
+          {"type": "s", "exponent": 0.14},
+          {"type": "s", "exponent": 1.05}
+        ]
       }
     ]
   }
 }
-
