@@ -3,6 +3,7 @@
 //
 
 #include "Integrals.h"
+#include "Lebedev_grid.h"
 
 void integral::StarterPack(int AZn, double Ax,double Ay, double Az, int asumA, double al,int BZn,double Bx,double By, double Bz, int asumB, double be,int CZn,double Cx,double Cy, double Cz, int asumC, double ga,int DZn,double Dx,double Dy, double Dz, int asumD, double de) {
     angsumA = asumA;
@@ -103,29 +104,28 @@ void integral::Make_matrixes(int a, int b, int c, int d, int m) {
 }
 
 double integral::calculation(int m, double alpha, double beta, double gamma, double delta, double sigma_p,double sigma_q, int type, point A, point B, point C, point D, double QmT) {
-
+//    cout<<A.x<<' '<<A.y<<' '<<A.z<<endl;
     for(int i=0;i<cal_T.size();i++){
         if(cal_T[i].first==m){
             return cal_T[i].second;
         }
     }
-    if(type==3){
+    if(type==3||type==4){
         double Eta=gamma+delta;
         sigma_p=0;
         sigma_q=1/(Eta+Eta);
     }
 
     double Rq=calculate_R(sigma_p,sigma_q,alpha,beta,gamma, delta,type,A,B,C,D);
-//     cout<<"R  "<<Rq<<endl;
     double U=calculate_U(sigma_p,sigma_q,alpha,beta,gamma, delta,A,B,C,D);
 //     cout<<"U  "<<U<<endl;
     double T=calculate_T(Rq,sigma_p,sigma_q);
-    if(type==3){
+    if(type==3||type==4){
         T=(gamma+delta)*Rq;
     }
 //    cout<<"T   "<<T<<endl;
     double v=calculate_v(sigma_p,sigma_q);
-    if(type==3)v=(gamma+delta);
+    if(type==3||type==4)v=(gamma+delta);
 //    cout<<"v   "<<v<<endl;
     double FmT=better_simpson_with_step(30,T,m);
 //    cout<<"Fmt: "<<FmT<<endl;
@@ -162,6 +162,8 @@ double integral::calculation(int m, double alpha, double beta, double gamma, dou
     }
 //    This is only added for the pcm part, same nuclear integral but ri instead of the nucleus Z
     if(type==4) {
+//        cout<<"A "<<A.x<<' '<<A.y<<' '<<A.z<<endl;
+//        cout<<"R  "<<Rq<<endl;
         double N1 = cal_norm(gamma);
         double N2 = cal_norm(delta);
         double eta=gamma+delta;
@@ -170,7 +172,7 @@ double integral::calculation(int m, double alpha, double beta, double gamma, dou
         double U_qq=pow(e,pow_e_q);
         double Uu=1*U_qq;
 //        cout<<"AZ: "<<AZ<<"CZ:  "<<CZ<<"DZ:  "<<DZ<<endl;
-        resoult=-Uu*(1/eta)*2*pi*FmT*pow(2*eta,m)*AZ;
+        resoult=Uu*(1/eta)*2*pi*FmT*pow(2*eta,m);
         resoult=resoult*N1*N2;
     }
 
@@ -186,7 +188,7 @@ void integral::make_equations(Matrix Ma, double alpha, double beta, double gamma
     double xi = alpha + beta;
     double eta_xi = (eta / (xi + eta));
     double xi_eta = (xi / (xi + eta));
-    if(type==2||type==3){
+    if(type==2||type==3||type==4){
         eta_xi=1/(2*eta);
         xi_eta=1/(2*xi);
     }
@@ -205,7 +207,7 @@ void integral::make_equations(Matrix Ma, double alpha, double beta, double gamma
     if(type>0){
         P=A;Q=C;
     }
-    if(type==3){
+    if(type==3||type==4){
         P=A;
         Q= adding_of_vectors_and_multiply(C,D,gamma,delta);
         Q=multiply_vector(Q,(1/(eta))); //nem kell egy *2 az eta elé?
@@ -222,7 +224,7 @@ void integral::make_equations(Matrix Ma, double alpha, double beta, double gamma
         equ.dd=((Ma.get_data(row,3)-1)/(2*eta));
         equ.aa=((Ma.get_data(row,0))/(2*(xi+eta)));
         equ.bb=(Ma.get_data(row,1)/(2*(xi+eta)));
-        if(type==2||type==3){
+        if(type==2||type==3||type==4){
             equ.aa=((Ma.get_data(row,0))/(4*(xi*eta)));
             equ.bb=(Ma.get_data(row,1)/(4*(xi*eta)));
         }
@@ -234,7 +236,7 @@ void integral::make_equations(Matrix Ma, double alpha, double beta, double gamma
         equ.dd=((Ma.get_data(row,3))/(2*eta));
         equ.aa=((Ma.get_data(row,0))/(2*(xi+eta)));
         equ.bb=(Ma.get_data(row,1)/(2*(xi+eta)));
-        if(type==2||type==3){
+        if(type==2||type==3||type==4){
             equ.aa=((Ma.get_data(row,0))/(4*(xi*eta)));
             equ.bb=(Ma.get_data(row,1)/(4*(xi*eta)));
         }
@@ -245,7 +247,7 @@ void integral::make_equations(Matrix Ma, double alpha, double beta, double gamma
         equ.bb=((Ma.get_data(row,1)-1)/(2*xi));
         equ.cc=((Ma.get_data(row,2))/(2*(xi+eta)));
         equ.dd=((Ma.get_data(row,3))/(2*(xi+eta)));
-        if(type==2||type==3){
+        if(type==2||type==3||type==4){
             equ.cc=((Ma.get_data(row,2))/(4*(xi*eta)));
             equ.dd=(Ma.get_data(row,3)/(4*(xi*eta)));
         }
@@ -256,7 +258,7 @@ void integral::make_equations(Matrix Ma, double alpha, double beta, double gamma
         equ.bb=((Ma.get_data(row,1))/(2*xi));
         equ.cc=((Ma.get_data(row,2))/(2*(xi+eta)));
         equ.dd=((Ma.get_data(row,3))/(2*(xi+eta)));
-        if(type==2||type==3){
+        if(type==2||type==3||type==4){
             equ.cc=((Ma.get_data(row,2))/(4*(xi*eta)));
             equ.dd=(Ma.get_data(row,3)/(4*(xi*eta)));
         }
@@ -454,7 +456,7 @@ void integral::download(double &f, Matrix M) {
     }
 }
 
-void integral::what_2(storage s, double alpha, double beta, double gamma, double delta, int type, point A, point B,point C, point D) {
+void integral::what_2(storage s, double alpha, double beta, double gamma, double delta, int type, point Aa, point Bb,point Cc, point Dd) {
     double sigmap= 1 / (alpha + beta);
     double sigmaq = 1 / (gamma + delta);
     double eta,xi,eta_xi,xi_eta;
@@ -462,7 +464,7 @@ void integral::what_2(storage s, double alpha, double beta, double gamma, double
     xi = alpha + beta;
     eta_xi = (eta / (xi + eta));
     xi_eta = (xi / (xi + eta));
-    if(type==3){
+    if(type==3||type==4){
         sigmap=0;
         sigmaq=(1/(eta+eta));
         xi=0;
@@ -482,7 +484,7 @@ void integral::what_2(storage s, double alpha, double beta, double gamma, double
         Q=C;
         R= Cal_R(alpha,beta,gamma,delta,sigmap,sigmaq,type,A,B,C,D);
     }
-    if(type==3){
+    if(type==3||type==4){
         P=A;
         Q= adding_of_vectors_and_multiply(C,D,gamma,delta);
         Q=multiply_vector(Q,(1/(eta+eta))*2);
@@ -508,7 +510,7 @@ void integral::what_2(storage s, double alpha, double beta, double gamma, double
     double aa,bb,cc,dd;
     double f_0,f_1,a_0,a_1,b_0,b_1,c_1,d_1;
     double pa,r;
-    if(type==2||type==3){
+    if(type==2||type==3||type==4){
         eta_xi=1/(2*xi);
         xi_eta=1/(2*eta);
     }
@@ -532,8 +534,10 @@ void integral::what_2(storage s, double alpha, double beta, double gamma, double
                                         calculate_R(sigmap, sigmaq, alpha, beta, gamma, delta, type, A, B, C, D),
                                         sigmap, sigmaq)));
         }
-        if (type==3){
+        if (type==3||type==4){
             value = calculation(M.m, alpha, beta, gamma, delta, sigmap, sigmaq, type, A, B, C, D,0.0);
+//            cout<<"---------------------------------------------------------------------------"<<endl;
+//            cout<<A.x<<' '<<A.y<<' '<<A.z<<endl;
         }
         finder(M, value);
 
@@ -655,7 +659,8 @@ void integral::what_2(storage s, double alpha, double beta, double gamma, double
                                      calculate_R(sigmap, sigmaq, alpha, beta, gamma, delta, type, A, B, C, D), sigmap,
                                      sigmaq)));
         }
-        if (type==3) {
+        if (type==3||type==4) {
+
             f0 = calculation(M_0.m, alpha, beta, gamma, delta, sigmap, sigmaq, type, A, B, C, D,0.0);
 //        cout<<"M_1:  ";M_1.write_out_Matrix();
             f1 = calculation(M_1.m, alpha, beta, gamma, delta, sigmap, sigmaq, type, A, B, C, D,0.0);
@@ -748,7 +753,7 @@ void integral::what_2(storage s, double alpha, double beta, double gamma, double
             bb = (M.get_data(X, 1) / (2 * xi));
             cc = (M.get_data(X, 2) / (2 * (xi + eta)));
             dd = (M.get_data(X, 3) / (2 * (xi + eta)));
-            if(type==2||type==3){
+            if(type==2||type==3||type==4){
                 cc = (M.get_data(X, 2) / (4 * (xi * eta)));
                 dd = (M.get_data(X, 3) / (4 * (xi * eta)));
             }
@@ -759,7 +764,7 @@ void integral::what_2(storage s, double alpha, double beta, double gamma, double
             bb = ((M.get_data(X, 1) - 1) / (2 * xi));
             cc = (M.get_data(X, 2) / (2 * (xi + eta)));
             dd = (M.get_data(X, 3) / (2 * (xi + eta)));
-            if(type==2||type==3){
+            if(type==2||type==3||type==4){
                 cc = (M.get_data(X, 2) / (4 * (xi * eta)));
                 dd = (M.get_data(X, 3) / (4 * (xi * eta)));
             }
@@ -769,7 +774,7 @@ void integral::what_2(storage s, double alpha, double beta, double gamma, double
             dd = ((M.get_data(X, 3)) / (2 * eta));
             aa = ((M.get_data(X, 0)) / (2 * (xi + eta)));
             bb = (M.get_data(X, 1) / (2 * (xi + eta)));
-            if(type==2||type==3){
+            if(type==2||type==3||type==4){
                 aa = (M.get_data(X, 0) / (4 * (xi * eta)));
                 bb = (M.get_data(X, 1) / (4 * (xi * eta)));
             }
@@ -780,7 +785,7 @@ void integral::what_2(storage s, double alpha, double beta, double gamma, double
             dd = ((M.get_data(X, 3) - 1) / (2 * eta));
             aa = ((M.get_data(X, 0)) / (2 * (xi + eta)));
             bb = (M.get_data(X, 1) / (2 * (xi + eta)));
-            if(type==2||type==3){
+            if(type==2||type==3||type==4){
                 aa = (M.get_data(X, 0) / (4 * (xi * eta)));
                 bb = (M.get_data(X, 1) / (4 * (xi * eta)));
             }
@@ -1002,7 +1007,7 @@ void integral::what_2(storage s, double alpha, double beta, double gamma, double
                     (bb * (b_0 - (eta_xi * b_1))) + (cc * c_1) + (dd * d_1);
         }
         else {
-            if(type==3){
+            if(type==3||type==4){
                 value = (pa * f_0) + (xi_eta * r * f_1) + (cc * (a_0 - (xi_eta * a_1))) +
                         (dd * (b_0 - (xi_eta * b_1)));
             }
@@ -1013,10 +1018,6 @@ void integral::what_2(storage s, double alpha, double beta, double gamma, double
         }
         finder(M, value);
     }
-}
-
-void integral::nom_mx_cal() {
-
 }
 
 double integral::cal_norm(double alp) {

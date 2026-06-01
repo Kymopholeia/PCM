@@ -21,23 +21,35 @@ using json = nlohmann::json;
 
 
 int main() {
+
+    cout << setprecision(12);
+    BasisSet Water;
+//    Water.filename="real_water.json";
+    Water.filename="ion_test.json";
+    Water.Make_Basis_Functions();
     Lebedev_grid Grid;
     Grid.Lebedev_grid_();
-//    Grid.write_out_grid_points();
-    BasisSet Bs;
-    Bs.filename="real_water.json";
-//    Bs.filename="Oxygen.json";
-    Bs.Make_Basis_Functions();
-//    Bs.write_out_BasisSet();
-    Grid.build_sphere(Bs,Grid);
-    Grid.cal_tessera(Grid,Bs);
+    Grid.build_sphere(Water,Grid);
+    Grid.cal_tessera(Grid,Water);
+    cout<<"mx size:  "<<Water.matrix_size<<endl;
+    Eigen::MatrixXd P=Eigen::MatrixXd::Zero(Water.matrix_size,Water.matrix_size);
+    Eigen::MatrixXd P_final;
+    SCF SCf(1e-8,100);
+    SCf.runSCF(Water,P,Grid);
+
+//    Lebedev_grid Grid;
+//    Grid.Lebedev_grid_();
+////    Grid.write_out_grid_points();
+//    BasisSet Bs;
+//    Bs.filename="real_water.json";
+////    Bs.filename="Oxygen.json";
+//    Bs.Make_Basis_Functions();
+////    Bs.write_out_BasisSet();
+//    Grid.build_sphere(Bs,Grid);
+//    Grid.cal_tessera(Grid,Bs);
 //    double kk=0;
 //    for(Tessera k:Grid.tesserae){cout<<k.area<<endl;kk=kk+k.area;}
 //    cout<<endl<<kk<<endl;
-    Pcm pcm;
-    pcm.s_mx_size=Grid.tesserae.size();
-    cout<<pcm.s_mx_size<<endl;
-    pcm.cal_smatrix(Grid);
 
 
 
@@ -45,6 +57,10 @@ int main() {
 //    BasisSet Water;
 //    Water.filename="real_water.json";
 //    Water.Make_Basis_Functions();
+//    Lebedev_grid Grid;
+//    Grid.Lebedev_grid_();
+//    Grid.build_sphere(Water,Grid);
+//    Grid.cal_tessera(Grid,Water);
 //    cout<<"mx size:  "<<Water.matrix_size<<endl;
 //    Eigen::MatrixXd P=Eigen::MatrixXd::Zero(Water.matrix_size,Water.matrix_size);
 //    SCF SCf(1e-8,100);

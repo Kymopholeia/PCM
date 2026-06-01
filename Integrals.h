@@ -17,7 +17,7 @@ public:
     const double e =2.7182818284590452353602874713526624977;
     const double pi = 3.14159265;
     int type;
-    point A, B, C, D;
+    point A, B, C, D,A_pcm_nuc;
     int angsumA, angsumB, angsumC, angsumD,AZ,BZ,CZ,DZ;
     double alpha, beta, gamma, delta;
     Eigen::MatrixXd integral_matrix;
@@ -40,7 +40,6 @@ public:
     void what_2(storage s,double alpha,double beta,double gamma,double delta,int type, point A, point B, point C, point D);
     void nom_mx_cal();
     double cal_norm(double alp);
-
 
 
 

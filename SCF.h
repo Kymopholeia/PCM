@@ -9,6 +9,7 @@
 #include "BasicFunctions.h"
 #include "Eigen/dense"
 #include "BasisSets.h"
+#include "Lebedev_grid.h"
 //#include "Coulomb_Exchange.h"
 #include "DensityMatrix.h"
 #include "FockMatrix.h"
@@ -16,6 +17,7 @@
 #include "Kinetic.h"
 #include "Nuclear.h"
 #include "ObaraSaika.h"
+#include "Pcm.h"
 
 
 class SCF{
@@ -31,6 +33,7 @@ public:
 
     SCF(double conv_threshold, int max_iter);
     void runSCF(BasisSet& Water,Eigen::MatrixXd& P);
+    void runSCF(BasisSet& Water,Eigen::MatrixXd& P,Lebedev_grid G);
     double calculateNuclearRepulsionEnergy(BasisSet& Water) const;
 };
 #endif //ONLAB_NEWHEADER_SCF_H

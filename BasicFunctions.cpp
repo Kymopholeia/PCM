@@ -78,7 +78,7 @@ double calculate_R(double sigma_p, double sigma_q,double alpha, double beta, dou
     PP=multiply_vector(PP,sigma_p);
     point QQ=adding_of_vectors_and_multiply(C,D,gamma,delta);
     QQ=multiply_vector(QQ,sigma_q);
-    if(type==3){
+    if(type==3||type==4){
         PP = A;
         QQ = (adding_of_vectors_and_multiply(C,D,gamma,delta));
         QQ= multiply_vector(QQ,2*EtaRecip);
@@ -89,14 +89,14 @@ double calculate_R(double sigma_p, double sigma_q,double alpha, double beta, dou
 
 point Cal_R(double alpha, double beta, double gamma, double delta,double sigma_p, double sigma_q, int type, point A, point B, point C, point D)
 {
-    if(type==3) {
+    if(type==3||type==4) {
         double eta = gamma + delta;
         sigma_p = 0;
         sigma_q = 1.0 / (eta);
     }
     point P=adding_of_vectors_and_multiply(A,B,alpha,beta);
     P=multiply_vector(P,sigma_p);
-    if(type==3){P=A;}
+    if(type==3||type==4){P=A;}
     point Q=adding_of_vectors_and_multiply(C,D,gamma,delta);
     Q=multiply_vector(Q,sigma_q);
 

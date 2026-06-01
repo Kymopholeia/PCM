@@ -21,6 +21,7 @@ public:
 
     Eigen::MatrixXd calculateCoreHamiltonian(Eigen::MatrixXd kin, Eigen::MatrixXd nuc);
     Eigen::MatrixXd calculateFockMatrix(Eigen::MatrixXd p, vector<El_rep_indexing> eri);
+    Eigen::MatrixXd calculateFockMatrix(Eigen::MatrixXd p, vector<El_rep_indexing> eri, vector<double> V_PCM);
     double calculateEnergy(Eigen::MatrixXd p,vector<El_rep_indexing> eri);
 };
 

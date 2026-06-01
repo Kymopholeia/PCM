@@ -1,0 +1,19 @@
+{
+  "molecule": {
+    "name": "Point Charge Ion (H+ at origin)",
+    "atoms": [
+      {
+        "element": "H",
+        "position": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "basis": [
+          {"type": "s", "exponent": 0.14},
+          {"type": "s", "exponent": 1.05}
+        ]
+      }
+    ]
+  }
+}

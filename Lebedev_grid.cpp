@@ -37,11 +37,9 @@ void Lebedev_grid::Lebedev_grid_() {
 //            grid_points.push_back(P);
 //        }
 //    }
-    point[0]=1;
-    point[1]=1;
-    point[2]=1;
-    P.x=1;P.y=1;P.z=1;
-    P.x=A3*1;P.y=A3*1;P.z=A3*1;
+    point[0] = A3;   // = 1/sqrt(3)
+    point[1] = A3;
+    point[2] = A3;
     for (int i=0;i<2;i++){
         for(int j=0;j<2;j++){
             for (int k=0;k<2;k++){
@@ -163,12 +161,12 @@ void Lebedev_grid::build_sphere(BasisSet &bs, Lebedev_grid &g) {
         }
         i+=1;
     }
-    int j=1;
-    for(Point tmp:g.sphere_points){
-        cout<<j;
-        tmp.write_point();
-        j+=1;
-    }
+//    int j=1;
+//    for(Point tmp:g.sphere_points){
+//        cout<<j;
+//        tmp.write_point();
+//        j+=1;
+//    }
 
 }
 
