@@ -26,6 +26,7 @@ public:
     double conv_tresh;
     double total_energy;
     double nuc_rep_en;
+    Eigen::MatrixXd density_P;
     Eigen::MatrixXd S,T,V;  //overlap,kinetic,nuclear matrix
     vector<El_rep_indexing> ERI;
     int mx_size; //electron number

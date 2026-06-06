@@ -69,6 +69,10 @@ void SCF::runSCF(BasisSet& Water, Eigen::MatrixXd& P_initial) {
 //        cout<<"eigen vektorok:  "<<endl<<es.eigenvectors()<<endl;
 //        cout<<"C matrix: "<<endl<<C<<endl;
 //        cout<<"eigen values:  "<<endl<<es.eigenvalues()<<endl;
+        std::cout << "Methanol orbital energies (vacuum, occupied):" << std::endl;
+        for (int i = 0; i < 9; i++) {  // 9 occupied orbitals for 18 electrons
+            std::cout << "  " << es.eigenvalues()[i] << std::endl;
+        }
 
         // Új sűrűségmátrix építése
         Density_Matrix density;
@@ -119,36 +123,9 @@ void SCF::runSCF(BasisSet& Water, Eigen::MatrixXd& P_initial, Lebedev_grid& G) {
     pcm.s_mx_size=G.tesserae.size();
     cout<<pcm.s_mx_size<<endl;
     pcm.cal_smatrix(G);
-    // Number of tesserae
-    std::cout << "Number of tesserae: " << G.tesserae.size() << std::endl;
-
-// Total cavity surface area
-    double total_area = 0.0;
-    for (const auto& t : G.tesserae) {
-        total_area += t.area;
-    }
-    std::cout << "Total cavity surface area: " << total_area << " Bohr²" << std::endl;
-
-// Total nuclear charge (what the cavity sees as Z_total)
-    int total_Z = 0;
-    for (const auto& a : Water.atoms) {
-        total_Z += a.Element;
-    }
-    std::cout << "Total nuclear charge: " << total_Z << std::endl;
-
-// Per-atom info
-    std::cout << "Atoms:" << std::endl;
-    for (size_t i = 0; i < Water.atoms.size(); ++i) {
-        std::cout << "  Atom " << i
-                  << ": element_name=" << Water.atoms[i].element_name
-                  << ", Z=" << Water.atoms[i].Element
-                  << ", vdW radius=" << Water.atoms[i].get_VdW_radii()
-                  << std::endl;
-    }
-
-// Basis functions per atom (helps spot basis imbalance)
-    std::cout << "Total basis functions: " << Water.basis.size() << std::endl;
+//    smatrix test can be placed here;
     pcm.build_pot_vector(Water,G,P);
+
 
     // SCF iterációk
     for(int iter = 0; iter < max_iter; iter++) {
@@ -172,8 +149,6 @@ void SCF::runSCF(BasisSet& Water, Eigen::MatrixXd& P_initial, Lebedev_grid& G) {
             cout<<endl;
             cout<<endl;
             cout<<"Eltérés (sample molekula esetén):  "<<(abs(-34.9401447199-total_energy))/34.9401447199<<" ( "<<conv_tresh<<" kéne lennie )"<<endl;
-            double n_check = (P.array() * overlap.integral_matrix.array()).sum();
-            std::cout << "Electron count from P·S_overlap: " << n_check << std::endl;
             return;
         }
         energy_prev = energy;

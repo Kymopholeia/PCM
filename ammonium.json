@@ -1,0 +1,68 @@
+{
+  "molecule": {
+    "name": "Ammonium ion (NH4+) - experimental dG_solv approx -81 kcal/mol. NOTE: net charge +1, 10 electrons total. If your SCF uses n_electrons = sum(Z), you'll need to override it to 10 here (sum of Z = 11).",
+    "atoms": [
+      {
+        "element": "N",
+        "position": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "basis": [
+          {"type": "s", "exponent": 1.25},
+          {"type": "s", "exponent": 0.28},
+          {"type": "p", "exponent": 0.18}
+        ]
+      },
+      {
+        "element": "H",
+        "position": {
+          "x": 0.5959,
+          "y": 0.5959,
+          "z": 0.5959
+        },
+        "basis": [
+          {"type": "s", "exponent": 1.05},
+          {"type": "s", "exponent": 0.14}
+        ]
+      },
+      {
+        "element": "H",
+        "position": {
+          "x": -0.5959,
+          "y": -0.5959,
+          "z": 0.5959
+        },
+        "basis": [
+          {"type": "s", "exponent": 1.05},
+          {"type": "s", "exponent": 0.14}
+        ]
+      },
+      {
+        "element": "H",
+        "position": {
+          "x": -0.5959,
+          "y": 0.5959,
+          "z": -0.5959
+        },
+        "basis": [
+          {"type": "s", "exponent": 1.05},
+          {"type": "s", "exponent": 0.14}
+        ]
+      },
+      {
+        "element": "H",
+        "position": {
+          "x": 0.5959,
+          "y": -0.5959,
+          "z": -0.5959
+        },
+        "basis": [
+          {"type": "s", "exponent": 1.05},
+          {"type": "s", "exponent": 0.14}
+        ]
+      }
+    ]
+  }
+}

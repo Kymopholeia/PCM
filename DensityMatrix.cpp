@@ -7,6 +7,7 @@
 Eigen::MatrixXd Density_Matrix::constructFromCoeff( Eigen::MatrixXd& C,Eigen::MatrixXd S){
     Eigen::MatrixXd P = Eigen::MatrixXd::Zero(mx_size, mx_size);
     int n_occ=n_elect/2;
+    cout<<"n occupied electrons are: "<<n_occ<<"no of electrons are: "<<n_elect<<endl;
 
     for(int mu = 0; mu < mx_size; mu++) {
         for(int nu = 0; nu < mx_size; nu++) {

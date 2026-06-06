@@ -1,0 +1,46 @@
+{
+  "molecule": {
+    "name": "Hydrogen cyanide (HCN) with p polarization on H only - cheaper test, no d functions needed. Experimental dG_solv = -3.2 kcal/mol.",
+    "atoms": [
+      {
+        "element": "H",
+        "position": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": -1.6587
+        },
+        "basis": [
+          {"type": "s", "exponent": 1.05},
+          {"type": "s", "exponent": 0.14},
+          {"type": "p", "exponent": 0.75}
+        ]
+      },
+      {
+        "element": "C",
+        "position": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": -0.5921
+        },
+        "basis": [
+          {"type": "s", "exponent": 1.35},
+          {"type": "s", "exponent": 0.31},
+          {"type": "p", "exponent": 0.20}
+        ]
+      },
+      {
+        "element": "N",
+        "position": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.5645
+        },
+        "basis": [
+          {"type": "s", "exponent": 1.25},
+          {"type": "s", "exponent": 0.28},
+          {"type": "p", "exponent": 0.18}
+        ]
+      }
+    ]
+  }
+}

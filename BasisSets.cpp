@@ -59,7 +59,7 @@ double Atom::get_VdW_radii() {
     double tuner=1.2;
     switch (Element) {
         case 1: return 1.2*1.8897259886*tuner;//angstrom H
-        case 6: return 1.5*1.8897259886*tuner; //C
+        case 6: return 1.7*1.8897259886*tuner; //C
         case 7: return 1.55*1.8897259886*tuner; //N
         case 8: return 1.52*1.8897259886*tuner; //O
         case -1: return -1;

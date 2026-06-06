@@ -1,0 +1,32 @@
+{
+  "molecule": {
+    "name": "Hydroxide ion (OH-) - experimental dG_solv approx -105 kcal/mol. NOTE: net charge -1, 10 electrons total. If your SCF uses n_electrons = sum(Z), you'll need to override it to 10 here (sum of Z = 9).",
+    "atoms": [
+      {
+        "element": "O",
+        "position": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "basis": [
+          {"type": "s", "exponent": 1.45},
+          {"type": "s", "exponent": 0.34},
+          {"type": "p", "exponent": 0.21}
+        ]
+      },
+      {
+        "element": "H",
+        "position": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.9697
+        },
+        "basis": [
+          {"type": "s", "exponent": 1.05},
+          {"type": "s", "exponent": 0.14}
+        ]
+      }
+    ]
+  }
+}
