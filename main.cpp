@@ -23,17 +23,17 @@ using json = nlohmann::json;
 int main() {
 
 
-    int TYPE=0;
+    int TYPE=1;
 
     auto start = std::chrono::high_resolution_clock::now();
     if(TYPE==0){
     cout<<"Normal SCF"<<endl;
     cout << setprecision(12);
     BasisSet Water;
-//    Water.filename="real_water.json";
-//    Water.filename="hcn_h_polarized.json";
+    Water.filename="real_water.json";
+//    Water.filename="hydrogen_peroxide.json";
 //    Water.filename="ammonia.json";
-    Water.filename="methanol.json";
+//    Water.filename="methanol.json";
     Water.Make_Basis_Functions();
     cout<<"mx size:  "<<Water.matrix_size<<endl;
     Eigen::MatrixXd P=Eigen::MatrixXd::Zero(Water.matrix_size,Water.matrix_size);
@@ -121,9 +121,10 @@ int main() {
         cout << setprecision(12);
         BasisSet Water;
 //    Water.filename="ion_test.json";
-//    Water.filename="real_water.json";
+    Water.filename="real_water.json";
 //    Water.filename="ammonia.json";
-//        Water.filename="methanol.json";
+//        Water.filename="hydroxide.json";
+//        Water.filename="metane.json";
         Water.Make_Basis_Functions();
         Lebedev_grid Grid;
         Grid.Lebedev_grid_();

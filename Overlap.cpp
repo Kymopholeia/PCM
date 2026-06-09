@@ -116,15 +116,13 @@ double Overlap::calculate_PrimInt(double Al, double Be, double Ga, double De, in
 //    return Omt;
     double N1 = cal_norm(Al);
     double N2 = cal_norm(Ga);
-
-    // Az eredeti számításod
-    mm = 0;  // s-típusú Gaussianokra
+    mm = 0;
     double aux = 1.0/(Al + Ga);
     double theta = (Al * Ga)/(Al + Ga);
     double theta2m = pow(theta * 2.0, mm);
 
     // Átfedési integrál
-    double overlap = theta2m * aux * sqrt(aux) * exp(-Tt) * sqrt(pow(pi, 3));
+    double overlap = theta2m * aux * sqrt(aux) * exp(-Tt) * sqrt(pow(M_PI, 3));
     return N1 * N2 * overlap;
 
 }

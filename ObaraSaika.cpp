@@ -138,12 +138,14 @@ ObaraSaika::ObaraSaika(BasisSet Test_set) {
 }
 
 double ObaraSaika::calculate_PrimInt(double Al, double Be, double Ga, double De, int mm, double Tt) {
+
     mm=0;
     double Omt;
     double aux=1/(Al+Ga);
     double theta=(Al*Ga)/(Al+Ga);
     double theta2m=pow(theta*2,mm);
-    Omt=theta2m*aux *sqrt(aux)*exp(-Tt)* sqrt(pow(pi,3));
+    Omt=theta2m*aux *sqrt(aux)*exp(-Tt)* sqrt(pow(M_PI,3));
+//    cout<<"obara saika Omt: "<<Omt<<" and theta2m: "<<theta2m<<endl;
     return Omt;
 }
 

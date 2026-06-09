@@ -4,7 +4,7 @@
 
 #include "FockMatrix.h"
 
-Eigen::MatrixXd Fock_mx::calculateCoreHamiltonian(Eigen::MatrixXd kin, Eigen::MatrixXd nuc) {
+Eigen::MatrixXd Fock_mx::calculateCoreHamiltonian(Eigen::MatrixXd& kin, Eigen::MatrixXd& nuc) {
     H_core=kin+nuc;
     cout<<"h_core:"<<endl;
     cout<<H_core<<endl;
@@ -161,13 +161,6 @@ double Fock_mx::calculateEnergy(Eigen::MatrixXd& P,vector<El_rep_indexing>& eri)
 
     }
     Ex=Ex*-0.25;
-
-//    p*coulom p*hcore p*exchange
-//     1.23      -2.4    -0.614
-//-1.7945
-//with hidrogen
-//      30.68   -77.27    -5..06
-//-34
 //    cout<<"Total Coulomb energy:  "<<(P*Co).trace()<<endl;
 //    cout<<"One electron energy :  "<<(P*H_core).trace()<<endl;
 //    cout<<"HF Exchange energy :  "<<(P*Ex).trace()<<endl;
@@ -207,18 +200,5 @@ double Fock_mx::calculateEnergy(Eigen::MatrixXd& P,vector<El_rep_indexing>& eri,
 
     }
     Ex=Ex*-0.25;
-
-//    p*coulom p*hcore p*exchange
-//     1.23      -2.4    -0.614
-//-1.7945
-//with hidrogen
-//      30.68   -77.27    -5..06
-//-34
-//    cout<<"Total Coulomb energy:  "<<(P*Co).trace()<<endl;
-//    cout<<"One electron energy :  "<<(P*H_core).trace()<<endl;
-//    cout<<"HF Exchange energy :  "<<(P*Ex).trace()<<endl;
-//    cout<<"Energy: "<<(P*Co).trace()+(P*H_core).trace()+(P*Ex).trace()<<endl;
-
-
     return (P*Co).trace()+(P*H_core).trace()+(P*Ex).trace()+E_solv;
 }

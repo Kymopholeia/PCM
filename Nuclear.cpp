@@ -9,6 +9,7 @@ Nuclear::Nuclear(BasisSet& Test_set) {
     cout<<"Nuclear started"<<endl;
     auto start = std::chrono::high_resolution_clock::now();
     Eigen::Index I = Test_set.matrix_size;
+//    integral_matrix.setZero();
     integral_matrix.resize(I, I);
 
     BasisFunction basisC, basisD;

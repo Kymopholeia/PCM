@@ -43,7 +43,7 @@ void SCF::runSCF(BasisSet& Water, Eigen::MatrixXd& P_initial) {
 //        cout<<"Fock matrix: "<<endl<<F<<endl;
 
         double energy = fock.calculateEnergy(P,electron_rep.ERI);
-        std::cout << "Iteration " << iter << ", Energy: " << energy << std::endl;
+        std::cout << "Iteration " << iter << ", Energy: " << energy+nuc_rep_en << std::endl;
 
         // Konvergencia ellenőrzés
         if(iter > 0 && std::abs(energy - energy_prev) < conv_tresh) {
@@ -58,7 +58,7 @@ void SCF::runSCF(BasisSet& Water, Eigen::MatrixXd& P_initial) {
             cout<<"The total energy is: "<<total_energy<<endl;
             cout<<endl;
             cout<<endl;
-            cout<<"Eltérés (sample molekula esetén):  "<<(abs(-34.9401447199-total_energy))/34.9401447199<<" ( "<<conv_tresh<<" kéne lennie )"<<endl;
+//            cout<<"Eltérés (sample molekula esetén):  "<<(abs(-34.9401447199-total_energy))/34.9401447199<<" ( "<<conv_tresh<<" kéne lennie )"<<endl;
             return;
         }
         energy_prev = energy;
@@ -146,9 +146,10 @@ void SCF::runSCF(BasisSet& Water, Eigen::MatrixXd& P_initial, Lebedev_grid& G) {
             cout<<endl;
             cout<<endl;
             cout<<"The total energy is: "<<total_energy<<endl;
+            cout<<"The PCM solvation energy is: "<<pcm.E_solv*627.5095<<endl;
             cout<<endl;
             cout<<endl;
-            cout<<"Eltérés (sample molekula esetén):  "<<(abs(-34.9401447199-total_energy))/34.9401447199<<" ( "<<conv_tresh<<" kéne lennie )"<<endl;
+//            cout<<"Eltérés (sample molekula esetén):  "<<(abs(-34.9401447199-total_energy))/34.9401447199<<" ( "<<conv_tresh<<" kéne lennie )"<<endl;
             return;
         }
         energy_prev = energy;

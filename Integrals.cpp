@@ -125,12 +125,12 @@ double integral::calculation(int m, double alpha, double beta, double gamma, dou
     }
 //    cout<<"T   "<<T<<endl;
     double v=calculate_v(sigma_p,sigma_q);
-    if(type==3||type==4)v=(gamma+delta);
+    if(type==3||type==4) { v = (gamma + delta); }
 //    cout<<"v   "<<v<<endl;
     double FmT=better_simpson_with_step(30,T,m);
 //    cout<<"Fmt: "<<FmT<<endl;
-    double resoult=0;
-    double U_q=sqrt(pow((pi*(1/alpha+gamma)),3))*pow(e,((-alpha*gamma*pow(distance_between_points(C,A),2))*(1/alpha+gamma)));
+    double resoult=0.0;
+//    double U_q=sqrt(pow((M_PI*(1/(alpha+gamma))),3))*pow(M_E,((-alpha*gamma*pow(distance_between_points(A,C),2))*(1/(alpha+gamma))));
     if(type==0){
         double N1 = cal_norm(alpha);
         double N2 = cal_norm(beta);
@@ -138,7 +138,7 @@ double integral::calculation(int m, double alpha, double beta, double gamma, dou
         double N4 = cal_norm(delta);
 
         // Az eredeti számításod
-        resoult = U * sqrt(2.0 * v) * sqrt(2.0 / pi) * FmT;
+        resoult = U * sqrt(2.0 * v) * sqrt(2.0 / M_PI) * FmT;
 
         // Normalizált eredmény
         resoult= N1 * N2 * N3 * N4 * resoult;}
@@ -152,12 +152,12 @@ double integral::calculation(int m, double alpha, double beta, double gamma, dou
         double N1 = cal_norm(gamma);
         double N2 = cal_norm(delta);
         double eta=gamma+delta;
-        double sigma_qq = 1 / (2 * (gamma+delta));
+        double sigma_qq = 1 / (2 * eta);
         double pow_e_q=-gamma*delta*sigma_qq*2*pow(distance_between_points(C,D),2);
-        double U_qq=pow(e,pow_e_q);
+        double U_qq=pow(M_E,pow_e_q);
         double Uu=1*U_qq;
 //        cout<<"AZ: "<<AZ<<"CZ:  "<<CZ<<"DZ:  "<<DZ<<endl;
-        resoult=-Uu*(1/eta)*2*pi*FmT*pow(2*eta,m)*AZ;
+        resoult=-Uu*(1/eta)*2*M_PI*FmT*pow(2*eta,m)*AZ;
         resoult=resoult*N1*N2;
     }
 //    This is only added for the pcm part, same nuclear integral but ri instead of the nucleus Z
@@ -172,7 +172,7 @@ double integral::calculation(int m, double alpha, double beta, double gamma, dou
         double U_qq=pow(e,pow_e_q);
         double Uu=1*U_qq;
 //        cout<<"AZ: "<<AZ<<"CZ:  "<<CZ<<"DZ:  "<<DZ<<endl;
-        resoult=Uu*(1/eta)*2*pi*FmT*pow(2*eta,m);
+        resoult=Uu*(1/eta)*2*M_PI*FmT*pow(2*eta,m);
         resoult=resoult*N1*N2;
     }
 
@@ -457,7 +457,7 @@ void integral::download(double &f, Matrix M) {
 }
 
 void integral::what_2(storage s, double alpha, double beta, double gamma, double delta, int type, point Aa, point Bb,point Cc, point Dd) {
-    double sigmap= 1 / (alpha + beta);
+    double sigmap= 1 /(alpha + beta);
     double sigmaq = 1 / (gamma + delta);
     double eta,xi,eta_xi,xi_eta;
     eta = gamma + delta;
@@ -469,6 +469,8 @@ void integral::what_2(storage s, double alpha, double beta, double gamma, double
         sigmaq=(1/(eta+eta));
         xi=0;
     }
+
+
 //    s.M.write_out_Matrix();
 
     point P,Q,R;
@@ -487,7 +489,7 @@ void integral::what_2(storage s, double alpha, double beta, double gamma, double
     if(type==3||type==4){
         P=A;
         Q= adding_of_vectors_and_multiply(C,D,gamma,delta);
-        Q=multiply_vector(Q,(1/(eta+eta))*2);
+        Q=multiply_vector(Q,(1/eta));
         R= Cal_R(alpha,beta,gamma,delta,sigmap,sigmaq,type,A,B,C,D);
     }
     if(!s.good()) {
@@ -507,9 +509,9 @@ void integral::what_2(storage s, double alpha, double beta, double gamma, double
 
     Matrix M=s.M;
     double value=0;
-    double aa,bb,cc,dd;
-    double f_0,f_1,a_0,a_1,b_0,b_1,c_1,d_1;
-    double pa,r;
+    double aa=0,bb=0,cc=0,dd=0;
+    double f_0=0,f_1=0,a_0=0,a_1=0,b_0=0,b_1=0,c_1=0,d_1=0;
+    double pa=0,r=0;
     if(type==2||type==3||type==4){
         eta_xi=1/(2*xi);
         xi_eta=1/(2*eta);
@@ -544,8 +546,8 @@ void integral::what_2(storage s, double alpha, double beta, double gamma, double
     }
     if (M.col_sum(0) + M.col_sum(1) + M.col_sum(2) + M.col_sum(3) == 1) {
 //            cout<<"01"<<endl;
-        int x, y, z;
-        double f0, f1;
+        int x=0, y=0, z=0;
+        double f0=0, f1=0;
         Matrix M_0, M_1;
 
 
@@ -1022,5 +1024,4 @@ void integral::what_2(storage s, double alpha, double beta, double gamma, double
 
 double integral::cal_norm(double alp) {
     return pow(2.0 * alp / M_PI, 0.75);
-
 }

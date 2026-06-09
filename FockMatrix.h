@@ -20,7 +20,7 @@ public:
     int mx_size;
 
 
-    Eigen::MatrixXd calculateCoreHamiltonian(Eigen::MatrixXd kin, Eigen::MatrixXd nuc);
+    Eigen::MatrixXd calculateCoreHamiltonian(Eigen::MatrixXd& kin, Eigen::MatrixXd& nuc);
     Eigen::MatrixXd calculateFockMatrix(Eigen::MatrixXd& p, vector<El_rep_indexing>& eri);
     Eigen::MatrixXd calculateFockMatrix(Eigen::MatrixXd& p, vector<El_rep_indexing>& eri, Eigen::VectorXd& q, vector<Eigen::MatrixXd>& Nuclear_pcm_matrix);
     double calculateEnergy(Eigen::MatrixXd& p,vector<El_rep_indexing>& eri);
