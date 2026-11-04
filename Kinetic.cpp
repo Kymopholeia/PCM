@@ -69,9 +69,9 @@ Kinetic::Kinetic(BasisSet Test_set) {
 
             }
             int t=0;
-            for(int r=0;r<Result_matrix.cols();r++){
-                for(int co=0;co<Result_matrix.rows();co++){
-                    Result_matrix(co,r)=rests[t];
+            for(int r=0;r<Result_matrix.rows();r++){
+                for(int co=0;co<Result_matrix.cols();co++){
+                    Result_matrix(r,co)=rests[t];
                     t+=1;
                 }
             }

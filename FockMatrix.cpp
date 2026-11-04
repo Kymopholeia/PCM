@@ -11,7 +11,7 @@ Eigen::MatrixXd Fock_mx::calculateCoreHamiltonian(Eigen::MatrixXd& kin, Eigen::M
     return H_core;
 }
 
-Eigen::MatrixXd Fock_mx::calculateFockMatrix(Eigen::MatrixXd& p,vector<El_rep_indexing>& eri) {
+Eigen::MatrixXd Fock_mx::calculateFockMatrix(Eigen::MatrixXd& p,vector<vector<vector<vector<double>>>>& eri) {
     auto start = std::chrono::high_resolution_clock::now();
 cout<<"Fock matrix started:"<<endl;
 //    cout<<"here"<<endl;
@@ -24,21 +24,8 @@ cout<<"Fock matrix started:"<<endl;
                 for(int sigma = 0; sigma < mx_size; sigma++) {
                     double val1, val2;
 
-                    for(const auto& e : eri) {
-
-                        if(e.Fia == mu && e.Fib == nu &&
-                        e.Fic == lambda && e.Fid == sigma) {
-                            val1= e.value;
-                        }
-
-                        if(e.Fia == mu && e.Fic == nu &&
-                        e.Fib == lambda && e.Fid == sigma) {
-                            val2=e.value;
-                        }
-                    }
-
-//                        val1=eri[mu][nu][lambda][sigma];
-//                        val2=eri[mu][lambda][nu][sigma];
+                        val1=eri[mu][nu][lambda][sigma];
+                        val2=eri[mu][lambda][nu][sigma];
 
                     double P_ls = p(lambda,sigma);
                     sum +=0.5* P_ls * (2.0 * val1 - val2);
@@ -68,7 +55,7 @@ cout<<"Fock matrix started:"<<endl;
     return F;
 }
 
-Eigen::MatrixXd Fock_mx::calculateFockMatrix(Eigen::MatrixXd& p,vector<El_rep_indexing>& eri,Eigen::VectorXd& q, vector<Eigen::MatrixXd>& Nuclear_pcm_matrix) {
+Eigen::MatrixXd Fock_mx::calculateFockMatrix(Eigen::MatrixXd& p,vector<vector<vector<vector<double>>>>& eri,Eigen::VectorXd& q, vector<Eigen::MatrixXd>& Nuclear_pcm_matrix) {
     auto start = std::chrono::high_resolution_clock::now();
     V_pcm = Eigen::MatrixXd::Zero(mx_size, mx_size);
     for (int i = 0; i < Nuclear_pcm_matrix.size(); ++i) {
@@ -85,21 +72,8 @@ cout<<"Fock matrix started:"<<endl;
                 for(int sigma = 0; sigma < mx_size; sigma++) {
                     double val1, val2;
 
-                    for(const auto& e : eri) {
-
-                        if(e.Fia == mu && e.Fib == nu &&
-                        e.Fic == lambda && e.Fid == sigma) {
-                            val1= e.value;
-                        }
-
-                        if(e.Fia == mu && e.Fic == nu &&
-                        e.Fib == lambda && e.Fid == sigma) {
-                            val2=e.value;
-                        }
-                    }
-
-//                        val1=eri[mu][nu][lambda][sigma];
-//                        val2=eri[mu][lambda][nu][sigma];
+                        val1=eri[mu][nu][lambda][sigma];
+                        val2=eri[mu][lambda][nu][sigma];
 
                     double P_ls = p(lambda,sigma);
                     sum +=0.5* P_ls * (2.0 * val1 - val2);
@@ -131,34 +105,34 @@ cout<<"Fock matrix started:"<<endl;
 
 
 
-double Fock_mx::calculateEnergy(Eigen::MatrixXd& P,vector<El_rep_indexing>& eri) {
+double Fock_mx::calculateEnergy(Eigen::MatrixXd& P,vector<vector<vector<vector<double>>>>& eri) {
 //  TOTOD basis size helyett n_electron
    Eigen::MatrixXd Co(mx_size,mx_size);
    Co=Eigen::MatrixXd::Zero(mx_size,mx_size);
    Eigen::MatrixXd Ex(mx_size,mx_size);
    Ex=Eigen::MatrixXd::Zero(mx_size,mx_size);
 
-    for(auto e : eri) {
-        int mu = e.Fia;
-        int nu= e.Fib;
-        int lambda = e.Fic;
-        int sigma= e.Fid;
-        double value = e.value;
-
-        Co(mu,nu) += P(lambda,sigma) * value;
-
+    for(int mu=0; mu<eri.size();mu++){
+        for(int nu=0;nu<eri[0].size();nu++){
+            for(int lambda=0;lambda<eri[0][0].size();lambda++){
+                for(int sigma=0;sigma<eri[0][0][0].size();sigma++){
+                    double value=eri[mu][nu][lambda][sigma];
+                    Co(mu,nu) +=  value * P(lambda,sigma);
+                }
+            }
+        }
     }
     Co=Co*0.5;
 
-    for(auto e : eri) {
-        int mu = e.Fia;
-        int nu= e.Fib;
-        int lambda = e.Fic;
-        int sigma= e.Fid;
-        double value = e.value;
-
-        Ex(mu,lambda) += value * P(nu,sigma);
-
+    for(int mu=0; mu<eri.size();mu++){
+        for(int nu=0;nu<eri[0].size();nu++){
+            for(int lambda=0;lambda<eri[0][0].size();lambda++){
+                for(int sigma=0;sigma<eri[0][0][0].size();sigma++){
+                    double value=eri[mu][nu][lambda][sigma];
+                    Ex(mu,lambda) += value * P(nu,sigma);
+                }
+            }
+        }
     }
     Ex=Ex*-0.25;
 //    cout<<"Total Coulomb energy:  "<<(P*Co).trace()<<endl;
@@ -170,34 +144,34 @@ double Fock_mx::calculateEnergy(Eigen::MatrixXd& P,vector<El_rep_indexing>& eri)
     return (P*Co).trace()+(P*H_core).trace()+(P*Ex).trace();
 }
 
-double Fock_mx::calculateEnergy(Eigen::MatrixXd& P,vector<El_rep_indexing>& eri, double& E_solv) {
+double Fock_mx::calculateEnergy(Eigen::MatrixXd& P,vector<vector<vector<vector<double>>>>& eri, double& E_solv) {
 //  TOTOD basis size helyett n_electron
    Eigen::MatrixXd Co(mx_size,mx_size);
    Co=Eigen::MatrixXd::Zero(mx_size,mx_size);
    Eigen::MatrixXd Ex(mx_size,mx_size);
    Ex=Eigen::MatrixXd::Zero(mx_size,mx_size);
 
-    for(auto e : eri) {
-        int mu = e.Fia;
-        int nu= e.Fib;
-        int lambda = e.Fic;
-        int sigma= e.Fid;
-        double value = e.value;
-
-        Co(mu,nu) += P(lambda,sigma) * value;
-
+    for(int mu=0; mu<eri.size();mu++){
+        for(int nu=0;nu<eri[0].size();nu++){
+            for(int lambda=0;lambda<eri[0][0].size();lambda++){
+                for(int sigma=0;sigma<eri[0][0][0].size();sigma++){
+                    double value=eri[mu][nu][lambda][sigma];
+                    Co(mu,nu) +=  value * P(lambda,sigma);
+                }
+            }
+        }
     }
     Co=Co*0.5;
 
-    for(auto e : eri) {
-        int mu = e.Fia;
-        int nu= e.Fib;
-        int lambda = e.Fic;
-        int sigma= e.Fid;
-        double value = e.value;
-
-        Ex(mu,lambda) += value * P(nu,sigma);
-
+    for(int mu=0; mu<eri.size();mu++){
+        for(int nu=0;nu<eri[0].size();nu++){
+            for(int lambda=0;lambda<eri[0][0].size();lambda++){
+                for(int sigma=0;sigma<eri[0][0][0].size();sigma++){
+                    double value=eri[mu][nu][lambda][sigma];
+                    Ex(mu,lambda) += value * P(nu,sigma);
+                }
+            }
+        }
     }
     Ex=Ex*-0.25;
     return (P*Co).trace()+(P*H_core).trace()+(P*Ex).trace()+E_solv;

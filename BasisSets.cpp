@@ -44,6 +44,7 @@ int Element_DataBase::get_element() {
     if(name=="C") { return 6; }
     if(name=="N") { return 7; }
 
+    cout<<"Unidentified element found. Please add info to BasisSets.cpp get_element() function thanks :)"<<endl;
     return -1;
 }
 
@@ -58,10 +59,10 @@ int Atom::Get_element(string elem) {
 double Atom::get_VdW_radii() {
     double tuner=1.2;
     switch (Element) {
-        case 1: return 1.2*1.8897259886*tuner;//angstrom H
-        case 6: return 1.7*1.8897259886*tuner; //C
-        case 7: return 1.55*1.8897259886*tuner; //N
-        case 8: return 1.52*1.8897259886*tuner; //O
+        case 1: return 1.2*1.889726124626*tuner;//angstrom H
+        case 6: return 1.7*1.889726124626*tuner; //C
+        case 7: return 1.55*1.889726124626*tuner; //N
+        case 8: return 1.52*1.889726124626*tuner; //O
         case -1: return -1;
     }
     return-1;
@@ -129,13 +130,13 @@ void BasisSet::Make_Basis_Functions() {
         atom.centrum.y = atom_json["position"]["y"];
         atom.centrum.z = atom_json["position"]["z"];
 
-        atom.Centrum.x= atom.Centrum.x*1.8897259886;
-        atom.Centrum.y= atom.Centrum.y*1.8897259886;
-        atom.Centrum.z= atom.Centrum.z*1.8897259886;
+        atom.Centrum.x= atom.Centrum.x*1.889726124626;
+        atom.Centrum.y= atom.Centrum.y*1.889726124626;
+        atom.Centrum.z= atom.Centrum.z*1.889726124626;
 //        code mergeing problem hardcode solution
-        atom.centrum.x= atom.centrum.x*1.8897259886;
-        atom.centrum.y= atom.centrum.y*1.8897259886;
-        atom.centrum.z= atom.centrum.z*1.8897259886;
+        atom.centrum.x= atom.centrum.x*1.889726124626;
+        atom.centrum.y= atom.centrum.y*1.889726124626;
+        atom.centrum.z= atom.centrum.z*1.889726124626;
 
         // Add the Atom to the atom list
         atoms.push_back(atom);

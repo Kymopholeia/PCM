@@ -39,10 +39,10 @@ void SCF::runSCF(BasisSet& Water, Eigen::MatrixXd& P_initial) {
 
     // SCF iterációk
     for(int iter = 0; iter < max_iter; iter++) {
-        Eigen::MatrixXd F = fock.calculateFockMatrix(P, electron_rep.ERI);
+        Eigen::MatrixXd F = fock.calculateFockMatrix(P, electron_rep.Eri2);
 //        cout<<"Fock matrix: "<<endl<<F<<endl;
 
-        double energy = fock.calculateEnergy(P,electron_rep.ERI);
+        double energy = fock.calculateEnergy(P,electron_rep.Eri2);
         std::cout << "Iteration " << iter << ", Energy: " << energy+nuc_rep_en << std::endl;
 
         // Konvergencia ellenőrzés
@@ -129,10 +129,10 @@ void SCF::runSCF(BasisSet& Water, Eigen::MatrixXd& P_initial, Lebedev_grid& G) {
 
     // SCF iterációk
     for(int iter = 0; iter < max_iter; iter++) {
-        Eigen::MatrixXd F = fock.calculateFockMatrix(P, electron_rep.ERI,pcm.q,pcm.Nuclear_pcm_matrix);
+        Eigen::MatrixXd F = fock.calculateFockMatrix(P, electron_rep.Eri2,pcm.q,pcm.Nuclear_pcm_matrix);
 //        cout<<"Fock matrix: "<<endl<<F<<endl;
 
-        double energy = fock.calculateEnergy(P,electron_rep.ERI,pcm.E_solv);
+        double energy = fock.calculateEnergy(P,electron_rep.Eri2,pcm.E_solv);
         std::cout << "Iteration " << iter << ", Energy: " << energy << std::endl;
 
         // Konvergencia ellenőrzés

@@ -69,10 +69,10 @@ Nuclear::Nuclear(BasisSet& Test_set) {
             }
 //                cout<<"rest size:"<<rests.size()<<endl;
             int t = 0;
-            for (int r = 0; r < Result_matrix.cols(); r++) {
-                for (int co = 0; co < Result_matrix.rows(); co++) {
+            for (int r = 0; r < Result_matrix.rows(); r++) {
+                for (int co = 0; co < Result_matrix.cols(); co++) {
 //                    cout<<"here"<<endl;
-                    Result_matrix(co, r) = rests[t];
+                    Result_matrix(r, co) = rests[t];
                     t += 1;
 
                 }
@@ -179,10 +179,10 @@ Nuclear::Nuclear(BasisSet& bs, Lebedev_grid& G) {
                     }
 //                cout<<"rest size:"<<rests.size()<<endl;
                     int t = 0;
-                    for (int r = 0; r < Result_matrix.cols(); r++) {
-                        for (int co = 0; co < Result_matrix.rows(); co++) {
+                    for (int r = 0; r < Result_matrix.rows(); r++) {
+                        for (int co = 0; co < Result_matrix.cols(); co++) {
 //                    cout<<"here"<<endl;
-                            Result_matrix(co, r) = rests[t];
+                            Result_matrix(r, co) = rests[t];
                             t += 1;
 
                         }
