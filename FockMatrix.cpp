@@ -135,10 +135,10 @@ double Fock_mx::calculateEnergy(Eigen::MatrixXd& P,vector<vector<vector<vector<d
         }
     }
     Ex=Ex*-0.25;
-//    cout<<"Total Coulomb energy:  "<<(P*Co).trace()<<endl;
-//    cout<<"One electron energy :  "<<(P*H_core).trace()<<endl;
-//    cout<<"HF Exchange energy :  "<<(P*Ex).trace()<<endl;
-//    cout<<"Energy: "<<(P*Co).trace()+(P*H_core).trace()+(P*Ex).trace()<<endl;
+    cout<<"Total Coulomb energy:  "<<(P*Co).trace()<<endl;
+    cout<<"One electron energy :  "<<(P*H_core).trace()<<endl;
+    cout<<"HF Exchange energy :  "<<(P*Ex).trace()<<endl;
+    cout<<"Energy: "<<(P*Co).trace()+(P*H_core).trace()+(P*Ex).trace()<<endl;
 
 
     return (P*Co).trace()+(P*H_core).trace()+(P*Ex).trace();
@@ -175,4 +175,9 @@ double Fock_mx::calculateEnergy(Eigen::MatrixXd& P,vector<vector<vector<vector<d
     }
     Ex=Ex*-0.25;
     return (P*Co).trace()+(P*H_core).trace()+(P*Ex).trace()+E_solv;
+
+//    cout<<"Total Coulomb energy:  "<<(P*Co).trace()<<endl;
+//    cout<<"One electron energy :  "<<(P*H_core).trace()<<endl;
+//    cout<<"HF Exchange energy :  "<<(P*Ex).trace()<<endl;
+//    cout<<"Energy: "<<(P*Co).trace()+(P*H_core).trace()+(P*Ex).trace()+E_solv<<endl;
 }

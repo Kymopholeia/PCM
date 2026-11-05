@@ -1,0 +1,182 @@
+{
+  "molecule": {
+    "name": "Benzene in unrolled STO-3G",
+    "atoms": [
+      {
+        "element": "C",
+        "position": {
+          "x": 1.38280,
+          "y": -0.22175,
+          "z": 0.00585
+        },
+        "basis":[
+            {"type": "s", "exponent": 71.6168370},
+            {"type": "s", "exponent": 13.0450960},
+            {"type": "s", "exponent": 3.5305122},
+            {"type": "s", "exponent": 2.9412494},
+            {"type": "s", "exponent": 0.6834831},
+            {"type": "s", "exponent": 0.2222899},
+            {"type": "p", "exponent": 2.9412494},
+            {"type": "p", "exponent": 0.6834831},
+            {"type": "p", "exponent": 0.2222899}
+        ]
+      },
+      {
+        "element": "C",
+        "position": {
+          "x": 0.50657,
+          "y": -1.30693,
+          "z": -0.00790
+        },
+        "basis":[
+            {"type": "s", "exponent": 71.6168370},
+            {"type": "s", "exponent": 13.0450960},
+            {"type": "s", "exponent": 3.5305122},
+            {"type": "s", "exponent": 2.9412494},
+            {"type": "s", "exponent": 0.6834831},
+            {"type": "s", "exponent": 0.2222899},
+            {"type": "p", "exponent": 2.9412494},
+            {"type": "p", "exponent": 0.6834831},
+            {"type": "p", "exponent": 0.2222899}
+        ]
+      },
+      {
+        "element": "C",
+        "position": {
+          "x": -0.87144,
+          "y": -1.09050,
+          "z": -0.01450
+        },
+        "basis":[
+            {"type": "s", "exponent": 71.6168370},
+            {"type": "s", "exponent": 13.0450960},
+            {"type": "s", "exponent": 3.5305122},
+            {"type": "s", "exponent": 2.9412494},
+            {"type": "s", "exponent": 0.6834831},
+            {"type": "s", "exponent": 0.2222899},
+            {"type": "p", "exponent": 2.9412494},
+            {"type": "p", "exponent": 0.6834831},
+            {"type": "p", "exponent": 0.2222899}
+        ]
+      },
+      {
+        "element": "C",
+        "position": {
+          "x": -1.37290,
+          "y": 0.21094,
+          "z": -0.00454
+        },
+        "basis":[
+            {"type": "s", "exponent": 71.6168370},
+            {"type": "s", "exponent": 13.0450960},
+            {"type": "s", "exponent": 3.5305122},
+            {"type": "s", "exponent": 2.9412494},
+            {"type": "s", "exponent": 0.6834831},
+            {"type": "s", "exponent": 0.2222899},
+            {"type": "p", "exponent": 2.9412494},
+            {"type": "p", "exponent": 0.6834831},
+            {"type": "p", "exponent": 0.2222899}
+        ]
+      },
+      {
+        "element": "C",
+        "position": {
+          "x": -0.49662,
+          "y": 1.29611,
+          "z": 0.01081
+        },
+        "basis":[
+            {"type": "s", "exponent": 71.6168370},
+            {"type": "s", "exponent": 13.0450960},
+            {"type": "s", "exponent": 3.5305122},
+            {"type": "s", "exponent": 2.9412494},
+            {"type": "s", "exponent": 0.6834831},
+            {"type": "s", "exponent": 0.2222899},
+            {"type": "p", "exponent": 2.9412494},
+            {"type": "p", "exponent": 0.6834831},
+            {"type": "p", "exponent": 0.2222899}
+        ]
+      },
+      {
+        "element": "C",
+        "position": {
+          "x": 0.88134,
+          "y": 1.07960,
+          "z": 0.01409
+        },
+        "basis":[
+            {"type": "s", "exponent": 71.6168370},
+            {"type": "s", "exponent": 13.0450960},
+            {"type": "s", "exponent": 3.5305122},
+            {"type": "s", "exponent": 2.9412494},
+            {"type": "s", "exponent": 0.6834831},
+            {"type": "s", "exponent": 0.2222899},
+            {"type": "p", "exponent": 2.9412494},
+            {"type": "p", "exponent": 0.6834831},
+            {"type": "p", "exponent": 0.2222899}
+        ]
+      },
+      {
+        "element": "H",
+        "position": {
+          "x": 2.45632,
+          "y": -0.39043,
+          "z": 0.00963
+        },
+        "basis":[{"type": "s", "exponent": 3.42525091}, {"type": "s", "exponent": 0.62391373},{"type": "s", "exponent": 0.16885540}]
+      },
+      {
+        "element": "H",
+        "position": {
+          "x": 0.89736,
+          "y": -2.32093,
+          "z": -0.01360
+        },
+        "basis":[{"type": "s", "exponent": 3.42525091}, {"type": "s", "exponent": 0.62391373},{"type": "s", "exponent": 0.16885540}]
+
+      },
+      {
+        "element": "H",
+        "position": {
+          "x": -1.55408,
+          "y": -1.93582,
+          "z": -0.02747
+        },
+        "basis":[{"type": "s", "exponent": 3.42525091}, {"type": "s", "exponent": 0.62391373},{"type": "s", "exponent": 0.16885540}]
+
+      },
+      {
+        "element": "H",
+        "position": {
+          "x": -2.44654,
+          "y": 0.37957,
+          "z": -0.00864
+        },
+        "basis":[{"type": "s", "exponent": 3.42525091}, {"type": "s", "exponent": 0.62391373},{"type": "s", "exponent": 0.16885540}]
+
+      },
+      {
+        "element": "H",
+        "position": {
+          "x": -0.88742,
+          "y": 2.31003,
+          "z": 0.01935
+        },
+        "basis":[{"type": "s", "exponent": 3.42525091}, {"type": "s", "exponent": 0.62391373},{"type": "s", "exponent": 0.16885540}]
+
+      },
+      {
+        "element": "H",
+        "position": {
+          "x": 1.56416,
+          "y": 1.92512,
+          "z": 0.02370
+        },
+        "basis":[{"type": "s", "exponent": 3.42525091}, {"type": "s", "exponent": 0.62391373},{"type": "s", "exponent": 0.16885540}]
+
+      }
+
+    ]
+  }
+}
+

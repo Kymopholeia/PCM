@@ -65,7 +65,7 @@ void Pcm::build_pot_vector(BasisSet& bs,Lebedev_grid& g, Eigen::MatrixXd& P) {
         }
 
     Eigen::VectorXd V_eigen = Eigen::Map<Eigen::VectorXd>(V_electric.data(), V_electric.size());
-    Eigen::VectorXd b = -0.987 * V_eigen;
+    Eigen::VectorXd b = -0.987243 * V_eigen;
 
     Eigen::LLT<Eigen::MatrixXd> llt(S_matrix);
     q = llt.solve(b);

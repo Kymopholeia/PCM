@@ -23,9 +23,9 @@ using json = nlohmann::json;
 int main() {
 
 
-    int TYPE=1;
+    int TYPE=0;
     BasisSet Water;
-    Water.filename="ammonia.json";
+    Water.filename="benzene_sto3g_unrolled.json";
 
     auto start = std::chrono::high_resolution_clock::now();
 
@@ -49,12 +49,12 @@ int main() {
         Grid.build_sphere(Water,Grid);
         Grid.cal_tessera(Grid,Water);
 
-        double kk=0;
-        for(Tessera k:Grid.tesserae){kk=kk+k.area;}
-        cout<<endl<<kk<<endl;
+//        double kk=0;
+//        for(Tessera k:Grid.tesserae){kk=kk+k.area;}
+//        cout<<endl<<kk<<endl;
 
         Eigen::MatrixXd P=Eigen::MatrixXd::Zero(Water.matrix_size,Water.matrix_size);
-        SCF SCf(1e-8,100);
+        SCF SCf(1e-8,300);
         SCf.runSCF(Water,P,Grid);
     }
     cout<<endl;

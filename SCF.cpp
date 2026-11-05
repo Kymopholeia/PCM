@@ -45,10 +45,13 @@ void SCF::runSCF(BasisSet& Water, Eigen::MatrixXd& P_initial) {
         double energy = fock.calculateEnergy(P,electron_rep.Eri2);
         std::cout << "Iteration " << iter << ", Energy: " << energy+nuc_rep_en << std::endl;
 
+
         // Konvergencia ellenőrzés
         if(iter > 0 && std::abs(energy - energy_prev) < conv_tresh) {
             Eigen::GeneralizedSelfAdjointEigenSolver<Eigen::MatrixXd> es(F, overlap.integral_matrix);
-            std::cout << "SCF converged!" << std::endl;
+            std::cout << "Normal SCF converged!" << std::endl;
+            cout<<"Commutator Norm= "<<((F*P*overlap.integral_matrix)-(overlap.integral_matrix*P*F)).norm()<<endl;
+            std::cout << Water.filename<<endl;
             std::cout << "Final energy: " << energy << std::endl;
             std::cout << "Iterations: " << iter + 1 << std::endl;
 
@@ -69,10 +72,7 @@ void SCF::runSCF(BasisSet& Water, Eigen::MatrixXd& P_initial) {
 //        cout<<"eigen vektorok:  "<<endl<<es.eigenvectors()<<endl;
 //        cout<<"C matrix: "<<endl<<C<<endl;
 //        cout<<"eigen values:  "<<endl<<es.eigenvalues()<<endl;
-        std::cout << "Methanol orbital energies (vacuum, occupied):" << std::endl;
-        for (int i = 0; i < 9; i++) {  // 9 occupied orbitals for 18 electrons
-            std::cout << "  " << es.eigenvalues()[i] << std::endl;
-        }
+
 
         // Új sűrűségmátrix építése
         Density_Matrix density;
@@ -136,9 +136,10 @@ void SCF::runSCF(BasisSet& Water, Eigen::MatrixXd& P_initial, Lebedev_grid& G) {
         std::cout << "Iteration " << iter << ", Energy: " << energy << std::endl;
 
         // Konvergencia ellenőrzés
-        if(iter > 0 && std::abs(energy - energy_prev) < conv_tresh) {
+        if(iter > 0 && std::abs(energy - energy_prev) < conv_tresh ) {
             Eigen::GeneralizedSelfAdjointEigenSolver<Eigen::MatrixXd> es(F, overlap.integral_matrix);
-            std::cout << "SCF converged!" << std::endl;
+            std::cout << "SCF PCM converged!" << std::endl;
+            std::cout << Water.filename<<endl;
             std::cout << "Final energy: " << energy << std::endl;
             std::cout << "Iterations: " << iter + 1 << std::endl;
 
@@ -177,10 +178,13 @@ void SCF::runSCF(BasisSet& Water, Eigen::MatrixXd& P_initial, Lebedev_grid& G) {
                   << "  E_pol = " << E_pol
                   << "  Tr(P·V_pcm) = " << (P * fock.V_pcm).trace()
                   << std::endl;
+
+
     }
 
     // Ha nem konvergált
     std::cout << "SCF did not converge within " << max_iter << " iterations" << std::endl;
+
 }
 
 double SCF::calculateNuclearRepulsionEnergy(BasisSet& Water) const
